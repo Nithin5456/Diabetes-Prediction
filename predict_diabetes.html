@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 15px;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .result p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Diabetes Prediction</h1>
+    </header>
+    
+    <div class="container">
+        <h2>Enter your details:</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="number" name="Pregnancies" placeholder="Pregnancies" class="form-input" required><br>
+            <input type="number" name="Glucose" placeholder="Glucose" class="form-input" required><br>
+            <input type="number" name="BloodPressure" placeholder="Blood Pressure" class="form-input" required><br>
+            <input type="number" name="SkinThickness" placeholder="Skin Thickness" class="form-input" required><br>
+            <input type="number" name="Insulin" placeholder="Insulin (integer or decimal)" class="form-input" step="any" required><br>
+            <input type="number" name="BMI" placeholder="BMI (integer or decimal)" class="form-input" step="any" required><br>
+            <input type="number" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function (integer or decimal)" class="form-input" step="any" required><br>
+            <input type="number" name="Age" placeholder="Age" class="form-input" required><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <p>Prediction: {{ prediction }}</p>
+            <h3>Your Input:</h3>
+            <ul>
+                <li><strong>Pregnancies:</strong> {{ user_input.Pregnancies }}</li>
+                <li><strong>Glucose:</strong> {{ user_input.Glucose }}</li>
+                <li><strong>Blood Pressure:</strong> {{ user_input.BloodPressure }}</li>
+                <li><strong>Skin Thickness:</strong> {{ user_input.SkinThickness }}</li>
+                <li><strong>Insulin:</strong> {{ user_input.Insulin }}</li>
+                <li><strong>BMI:</strong> {{ user_input.BMI }}</li>
+                <li><strong>Diabetes Pedigree Function:</strong> {{ user_input.DiabetesPedigreeFunction }}</li>
+                <li><strong>Age:</strong> {{ user_input.Age }}</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
